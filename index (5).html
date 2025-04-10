@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Pricing Model</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Product Price Prediction</h1>
+        
+        <div class="form-group">
+            <label for="rawMaterials">Raw Materials Cost:</label>
+            <div class="input-group">
+                <input type="number" id="rawMaterials" placeholder="Enter raw materials cost" step="0.01">
+                <span>EGP</span>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="manufacturingTime">Manufacturing Time (hours):</label>
+            <div class="input-group">
+                <input type="number" id="manufacturingTime" placeholder="Enter manufacturing time">
+                <span>hours</span>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="packaging">Packaging Price:</label>
+            <div class="input-group">
+                <input type="number" id="packaging" placeholder="Enter packaging price" step="0.01">
+                <span>EGP</span>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="shipping">Shipping Price:</label>
+            <div class="input-group">
+                <input type="number" id="shipping" placeholder="Enter shipping price" step="0.01">
+                <span>EGP</span>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="experience">Craftsman Experience (years):</label>
+            <div class="input-group">
+                <input type="number" id="experience" placeholder="Enter years of experience">
+                <span>years</span>
+            </div>
+        </div>
+        
+        <button onclick="calculatePrice()">Calculate Final Price</button>
+        
+        <div class="result" id="result">
+            <h2>Smart Pricing Result:</h2>
+            <p>Final Product Price:</p>
+            <div class="profit-price" id="profitPrice">0.00 EGP</div>
+        </div>
+    </div>
+
+    <script>
+        function calculatePrice() {
+            const rawMaterials = parseFloat(document.getElementById('rawMaterials').value) || 0;
+            const manufacturingTime = parseFloat(document.getElementById('manufacturingTime').value) || 0;
+            const packaging = parseFloat(document.getElementById('packaging').value) || 0;
+            const shipping = parseFloat(document.getElementById('shipping').value) || 0;
+            const experience = parseFloat(document.getElementById('experience').value) || 0;
+            
+            const baseCost = rawMaterials + packaging + shipping;
+            const hourlyRate = 10 + Math.random() * 5; // 10 to 15 EGP/hour
+            const timeCost = manufacturingTime * hourlyRate;
+            const experienceBonus = experience * 7.5;
+            
+            const finalPrice = (baseCost + timeCost + experienceBonus) * 1.2;
+            
+            document.getElementById('profitPrice').textContent = finalPrice.toFixed(2) + ' EGP';
+            document.getElementById('result').style.display = 'block';
+            
+            document.getElementById('result').style.animation = 'none';
+            setTimeout(() => {
+                document.getElementById('result').style.animation = 'slideUp 0.5s ease';
+            }, 10);
+        }
+    </script>
+</body>
+</html>
